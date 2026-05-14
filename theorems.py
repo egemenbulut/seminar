@@ -38,7 +38,7 @@ class Theorems():
         for i in range(len(self.machines)):
             self.machines[i] = (self.machines[i][0], self.machines[i][1], 0, 0)
 
-    def pull_machine(self, machine_id : int) -> None:
+    def pull_machine(self, machine_id : int) -> bool:
         """
         Pulls the machine with the given id.
         Increments the number_of_pulls by 1 and increments total_reward by 1
@@ -48,14 +48,18 @@ class Theorems():
             machine_id (int): The id of the machine to pull.
         """
         import random
+        
+        rewarded = False
         for i in range(len(self.machines)):
             if self.machines[i][0] == machine_id:
                 mid, mean, pulls, reward = self.machines[i]
                 pulls += 1
                 if random.random() < mean:
+                    rewarded = True
                     reward += 1
                 self.machines[i] = (mid, mean, pulls, reward)
                 break
+        return rewarded
     
     def regret(self) -> float:
         """
