@@ -198,3 +198,6 @@ class Theorems():
     def ucb1_normal(self) -> None:
         pass
     
+    #Extra 
+    def ucb_tuned(self) -> None:
+        pass
