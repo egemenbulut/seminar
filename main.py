@@ -47,6 +47,8 @@ graphs.multi_best_machine_ratio_plot([(ucb_tuned[0], ucb_tuned[2], "UCB-Tuned"),
 """
 
 """
+e_n-greedy with different c values tested on distribution 2
+
 eng_005 = simulation.run_simulations(5, data2, "en_greedy", c=0.05, d=0.1)
 eng_010 = simulation.run_simulations(5, data2, "en_greedy", c=0.10, d=0.1)
 eng_015 = simulation.run_simulations(5, data2, "en_greedy", c=0.15, d=0.1)
