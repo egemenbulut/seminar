@@ -36,14 +36,14 @@ class Theorems():
                 mean = mean_list[i - 1]
             else:
                 mean = mean_list[-1]
-            self.machines.append((i, mean, 0, 0,0))
+            self.machines.append((i, mean, 0, 0, 0))
 
     def reset(self) -> None:
         """
         This method resets the machines list.
         """
         for i in range(len(self.machines)):
-            self.machines[i] = (self.machines[i][0], self.machines[i][1], 0, 0,0)
+            self.machines[i] = (self.machines[i][0], self.machines[i][1], 0, 0, 0)
 
     def pull_machine(self, machine_id : int) -> None:
         """
@@ -272,10 +272,10 @@ class Theorems():
                 avg_reward = sum_reward/pulls
                 # variance estimate from paper:
                 # Var_j(s) = (1/s) * sum_reward_2 - avg_reward^2 + sqrt(2lnt /s)
-                var = (sum_reward_2/pulls)- (avg_reward**2)+ math.sqrt(2*math.log(total_pulls)/pulls)
+                var = (sum_reward_2/pulls) - (avg_reward**2) + math.sqrt((2*math.log(total_pulls))/pulls)
                 # 0.25 is the variance upper bound for a Bernoulli Random Variable -> p(1-p) <= 1/4
                 # so we bound our estimate at 0.25 to avoid blowing up when the estimate is bad
-                ucb_tuned_score = avg_reward+ math.sqrt((math.log(total_pulls)/ pulls)* min(0.25, var))
+                ucb_tuned_score = avg_reward + math.sqrt((math.log(total_pulls)/pulls) * min(0.25, var))
                 if ucb_tuned_score > best_score or (ucb_tuned_score == best_score and mid < best_id):
                     best_score = ucb_tuned_score
                     best_id = mid
