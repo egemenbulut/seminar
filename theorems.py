@@ -1,16 +1,18 @@
-import statistics
 from typing import List
 import random
 import math
-import statistics
 
 class Theorems():
 
     def __init__(self, number_of_machines : int, mean_list : List[float]) -> None:
         """
         This method is the constructor of the class.
-        It initializes the machines list. The list contains tuples of (machine_id, mean, number_of_pulls, reward_list).
-        If the number of machines is greater than the length of the mean list, the last mean is used for the remaining machines.
+        It initializes the machines list. The list contains tuples of 
+        (machine_id, mean, number_of_pulls, sum_reward, sum_reward_2).
+        sum_reward keeps the total rewards we got from the machine.
+        sum_reward_2 keeps the total squared rewards (needed for ucb_tuned variance).
+        If the number of machines is greater than the length of the mean list, 
+        the last mean is used for the remaining machines.
         
         Args:
             number_of_machines (int): The number of machines.
@@ -18,15 +20,15 @@ class Theorems():
         
         Returns:
             None
-
+ 
         Example:
             >>> theorems = Theorems(number_of_machines=3, mean_list=[0.1, 0.2, 0.3])
             >>> theorems.machines
-            [(1, 0.1, 0, []), (2, 0.2, 0, []), (3, 0.3, 0, [])]
-
+            [(1, 0.1, 0, 0, 0), (2, 0.2, 0, 0, 0), (3, 0.3, 0, 0, 0)]
+ 
             >>> theorems = Theorems(number_of_machines=5, mean_list=[0.1, 0.2, 0.3])
             >>> theorems.machines
-            [(1, 0.1, 0, []), (2, 0.2, 0, []), (3, 0.3, 0, []), (4, 0.3, 0, []), (5, 0.3, 0, [])]
+            [(1, 0.1, 0, 0, 0), (2, 0.2, 0, 0, 0), (3, 0.3, 0, 0, 0), (4, 0.3, 0, 0, 0), (5, 0.3, 0, 0, 0)]
         """
         self.machines = []
         for i in range(1, number_of_machines + 1):
@@ -34,33 +36,33 @@ class Theorems():
                 mean = mean_list[i - 1]
             else:
                 mean = mean_list[-1]
-            self.machines.append((i, mean, 0, []))
+            self.machines.append((i, mean, 0, 0,0))
 
     def reset(self) -> None:
         """
         This method resets the machines list.
         """
         for i in range(len(self.machines)):
-            self.machines[i] = (self.machines[i][0], self.machines[i][1], 0, [])
+            self.machines[i] = (self.machines[i][0], self.machines[i][1], 0, 0,0)
 
     def pull_machine(self, machine_id : int) -> None:
         """
         Pulls the machine with the given id.
-        Increments the number_of_pulls by 1 and appends 1 (reward) or 0 (no reward)
-        to the reward_list with a probability equal to the machine's mean value.
+        Increments the number_of_pulls by 1.
+        With probability equal to machine's mean we get reward 1, otherwise 0.
+        We add the reward to sum_reward and the squared reward to sum_reward_2.
 
         Args:
             machine_id (int): The id of the machine to pull.
         """        
         for i in range(len(self.machines)):
             if self.machines[i][0] == machine_id:
-                mid, mean, pulls, reward_list = self.machines[i]
+                mid, mean, pulls, sum_reward, sum_reward_2 = self.machines[i]
                 pulls += 1
                 if random.random() < mean:
-                    reward_list.append(1)
-                else:
-                    reward_list.append(0)
-                self.machines[i] = (mid, mean, pulls, reward_list)
+                    sum_reward += 1
+                    sum_reward_2 += 1
+                self.machines[i] = (mid, mean, pulls, sum_reward,sum_reward_2)
                 break
     
     def regret(self) -> float:
@@ -110,8 +112,8 @@ class Theorems():
             total_pulls = sum(m[2] for m in self.machines)
             best_score = -1
             best_id = -1
-            for mid, mean, pulls, reward_list in self.machines:
-                avg_reward = statistics.mean(reward_list)
+            for mid, mean, pulls, sum_reward, sum_reward_2 in self.machines:
+                avg_reward = sum_reward/pulls
                 ucb1_score = avg_reward + math.sqrt(2 * math.log(total_pulls) / pulls)
                 if ucb1_score > best_score or (ucb1_score == best_score and mid < best_id):
                     best_score = ucb1_score
@@ -145,8 +147,8 @@ class Theorems():
             total_pulls = sum(m[2] for m in self.machines)
             best_score = -1
             best_id = -1
-            for mid, mean, pulls, reward_list in self.machines:
-                avg_reward = statistics.mean(reward_list)
+            for mid, mean, pulls, sum_reward, sum_reward_2 in self.machines:
+                avg_reward = sum_reward/pulls
                 score = avg_reward + self.a_n_r(total_pulls, r_values[mid], alpha)
                 if score > best_score or (score == best_score and mid < best_id):
                     best_score = score
@@ -206,8 +208,7 @@ class Theorems():
         #    too big -> too much exploration, wasting pulls on suboptimal machines
         
         import random
-        # take all machine ids and how many machines we have
-        # need ids in a list so we can pick a random one easily later
+  
         machine_id = [m[0] for m in self.machines]
         machine_count = len(self.machines)
  
@@ -227,11 +228,9 @@ class Theorems():
                 best_avg = -1.0
                 best_id = -1
  
-                for mid, mean, pulls, reward_sum, reward_sum2 in self.machines:
-                    # avoid division by zero for machines not pulled yet
-                    # treat them as average 0 so they can still win ties
+                for mid, mean, pulls, sum_reward, sum_reward_2 in self.machines:
                     if pulls > 0:
-                        avg_reward = reward_sum/pulls
+                        avg_reward = sum_reward/pulls
                     else:
                         avg_reward = 0.0
                     # update best if this machine is strictly better
@@ -254,7 +253,8 @@ class Theorems():
         Implements the UCB-Tuned algorithm.
         First, each machine is pulled once. Then, until number_of_pulls is reached,
         the machine with the highest UCB-Tuned score is selected and pulled.
-        UCB-Tuned score = average_reward + sqrt((ln(n) / pulls) * min(0.25, V(machine)))
+        UCB-Tuned score = average_reward + sqrt((ln(n) / pulls) * min(0.25, Var(machine)))
+        where Var is te sample variance plus a confidence term.
 
         Args:
             number_of_pulls (int): The total number of pulls to perform.
@@ -268,16 +268,16 @@ class Theorems():
             total_pulls = sum(m[2] for m in self.machines)
             best_score = -1
             best_id = -1
-            for idx, (mid, mean, pulls, reward_list) in enumerate(self.machines):
-                avg_reward = statistics.mean(reward_list)
-                ucb_tuned_score = avg_reward + math.sqrt((math.log(total_pulls) / pulls) * min(0.25, self.v(idx, total_pulls)))
+            for idx, (mid, mean, pulls, sum_reward, sum_reward_2) in enumerate(self.machines):
+                avg_reward = sum_reward/pulls
+                # variance estimate from paper:
+                # Var_j(s) = (1/s) * sum_reward_2 - avg_reward^2 + sqrt(2lnt /s)
+                var = (sum_reward_2/pulls)- (avg_reward**2)+ math.sqrt(2*math.log(total_pulls)/pulls)
+                # 0.25 is the variance upper bound for a Bernoulli Random Variable -> p(1-p) <= 1/4
+                # so we bound our estimate at 0.25 to avoid blowing up when the estimate is bad
+                ucb_tuned_score = avg_reward+ math.sqrt((math.log(total_pulls)/ pulls)* min(0.25, var))
                 if ucb_tuned_score > best_score or (ucb_tuned_score == best_score and mid < best_id):
                     best_score = ucb_tuned_score
                     best_id = mid
             self.pull_machine(best_id)
 
-    def v(self, machine_id: int, total_pulls : int) -> float:
-        mid, mean, pulls, reward_list = self.machines[machine_id]
-        return ((1/pulls) * sum(reward**2 for reward in reward_list)) - statistics.mean(reward_list)**2 + math.sqrt((2 * math.log(total_pulls)) / pulls)
- 
-        
