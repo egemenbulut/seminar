@@ -193,8 +193,56 @@ class Theorems():
         return math.sqrt((1 + alpha) * math.log(math.e * n / t) / (2 * t))
  
     #Theorem-3
-    def en_greedy(self) -> None:
-        pass
+    def en_greedy(self, number_of_pulls:int, c:float, d:float) -> None:
+        # Notes on parameters:
+        # number_of_pulls: total rounds to run
+        # d: the smallest gap between the best arm and any other arm (0 < d ≤ min Δ_i)
+        #    practically we set it to (best mean - second best mean)
+        #    unlike UCBs you need o know the gap in advance -> weakness
+        # c: control the exploration rate (how aggresively we explore)
+        #    no formula given in paper, we tune it per distribution
+        #    by trial and error (like in the paper)
+        #    too small -> less exploration, fast growing regret early
+        #    too big -> too much exploration, wasting pulls on suboptimal machines
+        
+        import random
+        # take all machine ids and how many machines we have
+        # need ids in a list so we can pick a random one easily later
+        machine_id = [m[0] for m in self.machines]
+        machine_count = len(self.machines)
+ 
+        # main loop: n is the current play number, goes from 1 to number_of_pulls
+        for n in range(1, number_of_pulls + 1):
+            # epsilon_n is our exploration probability for this round
+            # formula straight from the paper: min(1, cK / (d^2 * n))
+            # early on n is small so epsilon_n is close to 1 -> lots of exploration
+            # as n grows epsilon_n shrinks -> more exploitation
+            epsilon_n = min(1.0, (c*machine_count)/((d**2)* n))
+ 
+            if random.random() < epsilon_n:
+                # Exploration: pick a random machine with probability epsilon_n 
+                next_id = random.choice(machine_id)
+            else:
+                # Exploitation: pick the machine with the highest average reward so far
+                best_avg = -1.0
+                best_id = -1
+ 
+                for mid, mean, pulls, reward in self.machines:
+                    # avoid division by zero for machines not pulled yet
+                    # treat them as average 0 so they can still win ties
+                    if pulls > 0:
+                        avg_reward = reward/pulls
+                    else:
+                        avg_reward = 0.0
+                    # update best if this machine is strictly better
+                    # or equal avg but lower id (same tie breaking as ucb1/ucb2)
+                    if avg_reward > best_avg or (avg_reward == best_avg and mid < best_id):
+                        best_avg = avg_reward
+                        best_id = mid
+                next_id = best_id
+ 
+            # pull the chosen machine
+            self.pull_machine(next_id)
 
     #Theorem-4
     def ucb1_normal(self) -> None:
