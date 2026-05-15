@@ -30,3 +30,18 @@ graphs.multi_best_machine_ratio_plot([(ucb2_1[0], ucb2_1[2], "UCB2 α = 0.1"),
     (ucb2_0001[0], ucb2_0001[2], "UCB2 α = 0.0001")], 
     title = "UCB2 Alpha Comparison", filename = "ucb2_alpha_comparison_ratio")    
 """
+
+"""
+# UCB-Tuned vs UCB1
+
+ucb_tuned = simulation.run_simulations(5, data5, "ucb_tuned")
+ucb1 = simulation.run_simulations(5, data5, "ucb1")
+
+graphs.multi_regret_plot([(ucb_tuned[0], ucb_tuned[1], "UCB-Tuned"), 
+    (ucb1[0], ucb1[1], "UCB1")], 
+    title = "UCB-Tuned vs UCB1", filename = "ucb_tuned_vs_ucb1_regret")
+
+graphs.multi_best_machine_ratio_plot([(ucb_tuned[0], ucb_tuned[2], "UCB-Tuned"), 
+    (ucb1[0], ucb1[2], "UCB1")], 
+    title = "UCB-Tuned vs UCB1", filename = "ucb_tuned_vs_ucb1_ratio")    
+"""
