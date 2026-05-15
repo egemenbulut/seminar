@@ -227,11 +227,11 @@ class Theorems():
                 best_avg = -1.0
                 best_id = -1
  
-                for mid, mean, pulls, reward in self.machines:
+                for mid, mean, pulls, reward_sum, reward_sum2 in self.machines:
                     # avoid division by zero for machines not pulled yet
                     # treat them as average 0 so they can still win ties
                     if pulls > 0:
-                        avg_reward = reward/pulls
+                        avg_reward = reward_sum/pulls
                     else:
                         avg_reward = 0.0
                     # update best if this machine is strictly better
