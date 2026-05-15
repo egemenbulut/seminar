@@ -57,9 +57,9 @@ class Theorems():
                 mid, mean, pulls, reward_list = self.machines[i]
                 pulls += 1
                 if random.random() < mean:
-                    reward_list = reward_list + [1]
+                    reward_list.append(1)
                 else:
-                    reward_list = reward_list + [0]
+                    reward_list.append(0)
                 self.machines[i] = (mid, mean, pulls, reward_list)
                 break
     
