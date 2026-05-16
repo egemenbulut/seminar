@@ -10,8 +10,7 @@ data5 = theorems.Theorems(10, [0.9, 0.8, 0.8, 0.8, 0.7, 0.7, 0.7, 0.6])
 data6 = theorems.Theorems(10, [0.9, 0.8])
 data7 = theorems.Theorems(10, [0.55, 0.45])
 
-"""
-# UCB2 with different alpha values
+"""# UCB2 with different alpha values
 ucb2_1 = simulation.run_simulations(5, data2, "ucb2", alpha=0.1)
 ucb2_01 = simulation.run_simulations(5, data2, "ucb2", alpha=0.01)
 ucb2_001 = simulation.run_simulations(5, data2, "ucb2", alpha=0.001)
@@ -44,7 +43,6 @@ print("*" * 50)
 print("✓ UCB-Tuned vs UCB1 graphs done.")
 print("*" * 50)"""
 
-
 """# e_n-greedy with different c values tested on distribution 1 (easy 2-armed)
 eng1_005 = simulation.run_simulations(5, data1, "en_greedy", c=0.05, d=0.3)
 eng1_010 = simulation.run_simulations(5, data1, "en_greedy", c=0.10, d=0.3)
@@ -65,7 +63,6 @@ graphs.multi_best_machine_ratio_plot([
 print("*" * 50)
 print("✓ ε-GREEDY c Comparison (Dist 1) graphs done.")
 print("*" * 50)"""
-
 
 """# e_n-greedy with different c values tested on distribution 2 (hard 2-armed)
 eng2_005 = simulation.run_simulations(5, data2, "en_greedy", c=0.05, d=0.1)
@@ -88,7 +85,6 @@ print("*" * 50)
 print("✓ ε-GREEDY c Comparison (Dist 2) graphs done.")
 print("*" * 50)"""
 
-
 """# e_n-greedy with different c values tested on distribution 12 (varied 10-armed) -> data5
 eng5_005 = simulation.run_simulations(5, data5, "en_greedy", c=0.05, d=0.1)
 eng5_010 = simulation.run_simulations(5, data5, "en_greedy", c=0.10, d=0.1)
@@ -108,7 +104,8 @@ graphs.multi_best_machine_ratio_plot([
 ], title="ε-GREEDY c Comparison (Dist 12)", filename="en_greedy_c_dist12_ratio")
 print("*" * 50)
 print("✓ ε-GREEDY c Comparison (Dist 12) graphs done.")
-print("*" * 50)"""
+print("*" * 50)
+"""
 
 """# e_n-greedy with different c values tested on distribution 14 (hard high-variance 10-armed) -> data7
 eng7_010 = simulation.run_simulations(5, data7, "en_greedy", c=0.10, d=0.1)
@@ -132,6 +129,7 @@ print("✓ ε-GREEDY c Comparison (Dist 14) graphs done.")
 print("*" * 50)"""
 
 """# UCB-Tuned vs UCB1 (2)
+
 ucb_tuned_2 = simulation.run_simulations(5, data2, "ucb_tuned")
 ucb1_2 = simulation.run_simulations(5, data2, "ucb1")
 graphs.multi_regret_plot([(ucb_tuned_2[0], ucb_tuned_2[1], "UCB-Tuned"), 
@@ -143,3 +141,111 @@ graphs.multi_best_machine_ratio_plot([(ucb_tuned_2[0], ucb_tuned_2[2], "UCB-Tune
 print("*" * 50)
 print("✓ UCB-Tuned vs UCB1 (Dist 2) graphs done.")
 print("*" * 50)"""
+
+
+# ─── Comparison on Distribution 2 [0.9, 0.8] ───
+ucb_tuned_d2  = simulation.run_simulations(5, data2, "ucb_tuned")
+ucb2_d2       = simulation.run_simulations(5, data2, "ucb2", alpha=0.001)
+eng_d2_005    = simulation.run_simulations(5, data2, "en_greedy", c=0.05, d=0.1)
+eng_d2_010    = simulation.run_simulations(5, data2, "en_greedy", c=0.10, d=0.1)
+eng_d2_015    = simulation.run_simulations(5, data2, "en_greedy", c=0.15, d=0.1)
+
+graphs.multi_regret_plot([
+    (ucb_tuned_d2[0], ucb_tuned_d2[1], "UCB-Tuned"),
+    (ucb2_d2[0],      ucb2_d2[1],      "UCB2 α=0.001"),
+    (eng_d2_005[0],   eng_d2_005[1],   "ε-GREEDY c=0.05"),
+    (eng_d2_010[0],   eng_d2_010[1],   "ε-GREEDY c=0.10"),
+    (eng_d2_015[0],   eng_d2_015[1],   "ε-GREEDY c=0.15"),
+], title="Comparison on Distribution 2 [0.9, 0.8]",
+   filename="comparison_dist2_regret")
+
+graphs.multi_best_machine_ratio_plot([
+    (ucb_tuned_d2[0], ucb_tuned_d2[2], "UCB-Tuned"),
+    (ucb2_d2[0],      ucb2_d2[2],      "UCB2 α=0.001"),
+    (eng_d2_005[0],   eng_d2_005[2],   "ε-GREEDY c=0.05"),
+    (eng_d2_010[0],   eng_d2_010[2],   "ε-GREEDY c=0.10"),
+    (eng_d2_015[0],   eng_d2_015[2],   "ε-GREEDY c=0.15"),
+], title="Comparison on Distribution 2 [0.9, 0.8]",
+   filename="comparison_dist2_ratio")
+print("Done with Distribution 2 comparison.")
+
+
+# ─── Comparison on Distribution 12 (10-armed varied, data5) ───
+ucb_tuned_d12 = simulation.run_simulations(5, data5, "ucb_tuned")
+ucb2_d12      = simulation.run_simulations(5, data5, "ucb2", alpha=0.001)
+eng_d12_010   = simulation.run_simulations(5, data5, "en_greedy", c=0.10, d=0.1)
+eng_d12_015   = simulation.run_simulations(5, data5, "en_greedy", c=0.15, d=0.1)
+eng_d12_020   = simulation.run_simulations(5, data5, "en_greedy", c=0.20, d=0.1)
+
+graphs.multi_regret_plot([
+    (ucb_tuned_d12[0], ucb_tuned_d12[1], "UCB-Tuned"),
+    (ucb2_d12[0],      ucb2_d12[1],      "UCB2 α=0.001"),
+    (eng_d12_010[0],   eng_d12_010[1],   "ε-GREEDY c=0.10"),
+    (eng_d12_015[0],   eng_d12_015[1],   "ε-GREEDY c=0.15"),
+    (eng_d12_020[0],   eng_d12_020[1],   "ε-GREEDY c=0.20"),
+], title="Comparison on Distribution 12 (10-armed varied)",
+   filename="comparison_dist12_regret")
+
+graphs.multi_best_machine_ratio_plot([
+    (ucb_tuned_d12[0], ucb_tuned_d12[2], "UCB-Tuned"),
+    (ucb2_d12[0],      ucb2_d12[2],      "UCB2 α=0.001"),
+    (eng_d12_010[0],   eng_d12_010[2],   "ε-GREEDY c=0.10"),
+    (eng_d12_015[0],   eng_d12_015[2],   "ε-GREEDY c=0.15"),
+    (eng_d12_020[0],   eng_d12_020[2],   "ε-GREEDY c=0.20"),
+], title="Comparison on Distribution 12 (10-armed varied)",
+   filename="comparison_dist12_ratio")
+print("Done with Distribution 12 comparison.")
+
+
+# ─── Comparison on Distribution 13 [0.9, 0.8×9] (data6) ───
+ucb_tuned_d13 = simulation.run_simulations(5, data6, "ucb_tuned")
+ucb2_d13      = simulation.run_simulations(5, data6, "ucb2", alpha=0.001)
+eng_d13_005   = simulation.run_simulations(5, data6, "en_greedy", c=0.05, d=0.1)
+eng_d13_010   = simulation.run_simulations(5, data6, "en_greedy", c=0.10, d=0.1)
+eng_d13_015   = simulation.run_simulations(5, data6, "en_greedy", c=0.15, d=0.1)
+
+graphs.multi_regret_plot([
+    (ucb_tuned_d13[0], ucb_tuned_d13[1], "UCB-Tuned"),
+    (ucb2_d13[0],      ucb2_d13[1],      "UCB2 α=0.001"),
+    (eng_d13_005[0],   eng_d13_005[1],   "ε-GREEDY c=0.05"),
+    (eng_d13_010[0],   eng_d13_010[1],   "ε-GREEDY c=0.10"),
+    (eng_d13_015[0],   eng_d13_015[1],   "ε-GREEDY c=0.15"),
+], title="Comparison on Distribution 13 [0.9, 0.8x9]",
+   filename="comparison_dist13_regret")
+
+graphs.multi_best_machine_ratio_plot([
+    (ucb_tuned_d13[0], ucb_tuned_d13[2], "UCB-Tuned"),
+    (ucb2_d13[0],      ucb2_d13[2],      "UCB2 α=0.001"),
+    (eng_d13_005[0],   eng_d13_005[2],   "ε-GREEDY c=0.05"),
+    (eng_d13_010[0],   eng_d13_010[2],   "ε-GREEDY c=0.10"),
+    (eng_d13_015[0],   eng_d13_015[2],   "ε-GREEDY c=0.15"),
+], title="Comparison on Distribution 13 [0.9, 0.8x9]",
+   filename="comparison_dist13_ratio")
+print("Done with Distribution 13 comparison.")
+
+
+# ─── Comparison on Distribution 14 [0.55, 0.45×9] (data7) ───
+ucb_tuned_d14 = simulation.run_simulations(5, data7, "ucb_tuned")
+ucb2_d14      = simulation.run_simulations(5, data7, "ucb2", alpha=0.001)
+eng_d14_020   = simulation.run_simulations(5, data7, "en_greedy", c=0.20, d=0.1)
+eng_d14_030   = simulation.run_simulations(5, data7, "en_greedy", c=0.30, d=0.1)
+eng_d14_040   = simulation.run_simulations(5, data7, "en_greedy", c=0.40, d=0.1)
+
+graphs.multi_regret_plot([
+    (ucb_tuned_d14[0], ucb_tuned_d14[1], "UCB-Tuned"),
+    (ucb2_d14[0],      ucb2_d14[1],      "UCB2 α=0.001"),
+    (eng_d14_020[0],   eng_d14_020[1],   "ε-GREEDY c=0.20"),
+    (eng_d14_030[0],   eng_d14_030[1],   "ε-GREEDY c=0.30"),
+    (eng_d14_040[0],   eng_d14_040[1],   "ε-GREEDY c=0.40"),
+], title="Comparison on Distribution 14 [0.55, 0.45x9]",
+   filename="comparison_dist14_regret")
+
+graphs.multi_best_machine_ratio_plot([
+    (ucb_tuned_d14[0], ucb_tuned_d14[2], "UCB-Tuned"),
+    (ucb2_d14[0],      ucb2_d14[2],      "UCB2 α=0.001"),
+    (eng_d14_020[0],   eng_d14_020[2],   "ε-GREEDY c=0.20"),
+    (eng_d14_030[0],   eng_d14_030[2],   "ε-GREEDY c=0.30"),
+    (eng_d14_040[0],   eng_d14_040[2],   "ε-GREEDY c=0.40"),
+], title="Comparison on Distribution 14 [0.55, 0.45x9]",
+   filename="comparison_dist14_ratio")
+print("Done with Distribution 14 comparison.")
