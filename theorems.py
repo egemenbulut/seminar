@@ -206,9 +206,7 @@ class Theorems():
         #    by trial and error (like in the paper)
         #    too small -> less exploration, fast growing regret early
         #    too big -> too much exploration, wasting pulls on suboptimal machines
-        
-        import random
-  
+          
         machine_id = [m[0] for m in self.machines]
         machine_count = len(self.machines)
         
