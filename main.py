@@ -47,28 +47,82 @@ graphs.multi_best_machine_ratio_plot([(ucb_tuned[0], ucb_tuned[2], "UCB-Tuned"),
 """
 
 """
-#e_n-greedy with different c values tested on distribution 2
-
-eng_005 = simulation.run_simulations(5, data2, "en_greedy", c=0.05, d=0.1)
-eng_010 = simulation.run_simulations(5, data2, "en_greedy", c=0.10, d=0.1)
-eng_015 = simulation.run_simulations(5, data2, "en_greedy", c=0.15, d=0.1)
-eng_020 = simulation.run_simulations(5, data2, "en_greedy", c=0.20, d=0.1)
-
+# e_n-greedy with different c values tested on distribution 1 (easy 2-armed)
+eng1_005 = simulation.run_simulations(5, data1, "en_greedy", c=0.05, d=0.3)
+eng1_010 = simulation.run_simulations(5, data1, "en_greedy", c=0.10, d=0.3)
+eng1_015 = simulation.run_simulations(5, data1, "en_greedy", c=0.15, d=0.3)
+eng1_020 = simulation.run_simulations(5, data1, "en_greedy", c=0.20, d=0.3)
 graphs.multi_regret_plot([
-    (eng_005[0], eng_005[1], "ε-GREEDY c=0.05"),
-    (eng_010[0], eng_010[1], "ε-GREEDY c=0.10"),
-    (eng_015[0], eng_015[1], "ε-GREEDY c=0.15"),
-    (eng_020[0], eng_020[1], "ε-GREEDY c=0.20")
-], title="ε-GREEDY c Comparison (Dist 2)", filename="en_greedy_c_dist2_regret")
-
+    (eng1_005[0], eng1_005[1], "ε-GREEDY c=0.05"),
+    (eng1_010[0], eng1_010[1], "ε-GREEDY c=0.10"),
+    (eng1_015[0], eng1_015[1], "ε-GREEDY c=0.15"),
+    (eng1_020[0], eng1_020[1], "ε-GREEDY c=0.20")
+], title="ε-GREEDY c Comparison (Dist 1)", filename="en_greedy_c_dist1_regret")
 graphs.multi_best_machine_ratio_plot([
-    (eng_005[0], eng_005[2], "ε-GREEDY c=0.05"),
-    (eng_010[0], eng_010[2], "ε-GREEDY c=0.10"),
-    (eng_015[0], eng_015[2], "ε-GREEDY c=0.15"),
-    (eng_020[0], eng_020[2], "ε-GREEDY c=0.20")
-], title="ε-GREEDY c Comparison (Dist 2)", filename="en_greedy_c_dist2_ratio")
+    (eng1_005[0], eng1_005[2], "ε-GREEDY c=0.05"),
+    (eng1_010[0], eng1_010[2], "ε-GREEDY c=0.10"),
+    (eng1_015[0], eng1_015[2], "ε-GREEDY c=0.15"),
+    (eng1_020[0], eng1_020[2], "ε-GREEDY c=0.20")
+], title="ε-GREEDY c Comparison (Dist 1)", filename="en_greedy_c_dist1_ratio")
+print("Done with Distribution 1.")
 
-print("Done.")
+
+# e_n-greedy with different c values tested on distribution 2 (hard 2-armed)
+eng2_005 = simulation.run_simulations(5, data2, "en_greedy", c=0.05, d=0.1)
+eng2_010 = simulation.run_simulations(5, data2, "en_greedy", c=0.10, d=0.1)
+eng2_015 = simulation.run_simulations(5, data2, "en_greedy", c=0.15, d=0.1)
+eng2_020 = simulation.run_simulations(5, data2, "en_greedy", c=0.20, d=0.1)
+graphs.multi_regret_plot([
+    (eng2_005[0], eng2_005[1], "ε-GREEDY c=0.05"),
+    (eng2_010[0], eng2_010[1], "ε-GREEDY c=0.10"),
+    (eng2_015[0], eng2_015[1], "ε-GREEDY c=0.15"),
+    (eng2_020[0], eng2_020[1], "ε-GREEDY c=0.20")
+], title="ε-GREEDY c Comparison (Dist 2)", filename="en_greedy_c_dist2_regret")
+graphs.multi_best_machine_ratio_plot([
+    (eng2_005[0], eng2_005[2], "ε-GREEDY c=0.05"),
+    (eng2_010[0], eng2_010[2], "ε-GREEDY c=0.10"),
+    (eng2_015[0], eng2_015[2], "ε-GREEDY c=0.15"),
+    (eng2_020[0], eng2_020[2], "ε-GREEDY c=0.20")
+], title="ε-GREEDY c Comparison (Dist 2)", filename="en_greedy_c_dist2_ratio")
+print("Done with Distribution 2.")
+
+# e_n-greedy with different c values tested on distribution 12 (varied 10-armed) -> data5
+eng5_005 = simulation.run_simulations(5, data5, "en_greedy", c=0.05, d=0.1)
+eng5_010 = simulation.run_simulations(5, data5, "en_greedy", c=0.10, d=0.1)
+eng5_015 = simulation.run_simulations(5, data5, "en_greedy", c=0.15, d=0.1)
+eng5_020 = simulation.run_simulations(5, data5, "en_greedy", c=0.20, d=0.1)
+graphs.multi_regret_plot([
+    (eng5_005[0], eng5_005[1], "ε-GREEDY c=0.05"),
+    (eng5_010[0], eng5_010[1], "ε-GREEDY c=0.10"),
+    (eng5_015[0], eng5_015[1], "ε-GREEDY c=0.15"),
+    (eng5_020[0], eng5_020[1], "ε-GREEDY c=0.20")
+], title="ε-GREEDY c Comparison (Dist 12)", filename="en_greedy_c_dist12_regret")
+graphs.multi_best_machine_ratio_plot([
+    (eng5_005[0], eng5_005[2], "ε-GREEDY c=0.05"),
+    (eng5_010[0], eng5_010[2], "ε-GREEDY c=0.10"),
+    (eng5_015[0], eng5_015[2], "ε-GREEDY c=0.15"),
+    (eng5_020[0], eng5_020[2], "ε-GREEDY c=0.20")
+], title="ε-GREEDY c Comparison (Dist 12)", filename="en_greedy_c_dist12_ratio")
+print("Done with Distribution 12.")
+
+# e_n-greedy with different c values tested on distribution 14 (hard high-variance 10-armed) -> data7
+eng7_010 = simulation.run_simulations(5, data7, "en_greedy", c=0.10, d=0.1)
+eng7_020 = simulation.run_simulations(5, data7, "en_greedy", c=0.20, d=0.1)
+eng7_030 = simulation.run_simulations(5, data7, "en_greedy", c=0.30, d=0.1)
+eng7_040 = simulation.run_simulations(5, data7, "en_greedy", c=0.40, d=0.1)
+graphs.multi_regret_plot([
+    (eng7_010[0], eng7_010[1], "ε-GREEDY c=0.10"),
+    (eng7_020[0], eng7_020[1], "ε-GREEDY c=0.20"),
+    (eng7_030[0], eng7_030[1], "ε-GREEDY c=0.30"),
+    (eng7_040[0], eng7_040[1], "ε-GREEDY c=0.40")
+], title="ε-GREEDY c Comparison (Dist 14)", filename="en_greedy_c_dist14_regret")
+graphs.multi_best_machine_ratio_plot([
+    (eng7_010[0], eng7_010[2], "ε-GREEDY c=0.10"),
+    (eng7_020[0], eng7_020[2], "ε-GREEDY c=0.20"),
+    (eng7_030[0], eng7_030[2], "ε-GREEDY c=0.30"),
+    (eng7_040[0], eng7_040[2], "ε-GREEDY c=0.40")
+], title="ε-GREEDY c Comparison (Dist 14)", filename="en_greedy_c_dist14_ratio")
+print("Done with Distribution 14.")
 """
 
 """
