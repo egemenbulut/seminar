@@ -77,3 +77,18 @@ graphs.multi_best_machine_ratio_plot([
 print("Done.")
 
 """
+
+"""
+# UCB-Tuned vs UCB1 (2)
+
+ucb_tuned_2 = simulation.run_simulations(5, data2, "ucb_tuned")
+ucb1_2 = simulation.run_simulations(5, data2, "ucb1")
+
+graphs.multi_regret_plot([(ucb_tuned_2[0], ucb_tuned_2[1], "UCB-Tuned"), 
+    (ucb1_2[0], ucb1_2[1], "UCB1")], 
+    title = "UCB-Tuned vs UCB1 (Dist 2)", filename = "ucb_tuned_vs_ucb1_regret_dist2")
+
+graphs.multi_best_machine_ratio_plot([(ucb_tuned_2[0], ucb_tuned_2[2], "UCB-Tuned"), 
+    (ucb1_2[0], ucb1_2[2], "UCB1")], 
+    title = "UCB-Tuned vs UCB1 (Dist 2)", filename = "ucb_tuned_vs_ucb1_ratio_dist2") 
+"""
