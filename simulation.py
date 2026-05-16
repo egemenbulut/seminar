@@ -2,7 +2,7 @@ from theorems import Theorems
 import numpy as np
 import random
 
-def run_simulations(n: int, data: Theorems, alg: str, alpha: float = 0.0001, 
+def run_simulations(n: int, data: Theorems, alg: str, alpha: float = 0.001, 
                         c: float = 0.15, d: float = None, number_of_simulations: int = 100) -> tuple[list[int], list[float], list[float]]:
     """
     Run simulations for the given algorithm.
