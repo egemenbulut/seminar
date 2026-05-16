@@ -53,27 +53,20 @@ eng_005 = simulation.run_simulations(5, data2, "en_greedy", c=0.05, d=0.1)
 eng_010 = simulation.run_simulations(5, data2, "en_greedy", c=0.10, d=0.1)
 eng_015 = simulation.run_simulations(5, data2, "en_greedy", c=0.15, d=0.1)
 eng_020 = simulation.run_simulations(5, data2, "en_greedy", c=0.20, d=0.1)
-eng_025 = simulation.run_simulations(5, data2, "en_greedy", c=0.25, d=0.1)
-eng_030 = simulation.run_simulations(5, data2, "en_greedy", c=0.30, d=0.1)
 
 graphs.multi_regret_plot([
     (eng_005[0], eng_005[1], "ε-GREEDY c=0.05"),
     (eng_010[0], eng_010[1], "ε-GREEDY c=0.10"),
     (eng_015[0], eng_015[1], "ε-GREEDY c=0.15"),
-    (eng_020[0], eng_020[1], "ε-GREEDY c=0.20"),
-    (eng_025[0], eng_025[1], "ε-GREEDY c=0.25"),
-    (eng_030[0], eng_030[1], "ε-GREEDY c=0.30"),
+    (eng_020[0], eng_020[1], "ε-GREEDY c=0.20")
 ], title="ε-GREEDY c Comparison (Dist 2)", filename="en_greedy_c_dist2_regret")
 
 graphs.multi_best_machine_ratio_plot([
     (eng_005[0], eng_005[2], "ε-GREEDY c=0.05"),
     (eng_010[0], eng_010[2], "ε-GREEDY c=0.10"),
     (eng_015[0], eng_015[2], "ε-GREEDY c=0.15"),
-    (eng_020[0], eng_020[2], "ε-GREEDY c=0.20"),
-    (eng_025[0], eng_025[2], "ε-GREEDY c=0.25"),
-    (eng_030[0], eng_030[2], "ε-GREEDY c=0.30"),
+    (eng_020[0], eng_020[2], "ε-GREEDY c=0.20")
 ], title="ε-GREEDY c Comparison (Dist 2)", filename="en_greedy_c_dist2_ratio")
 
 print("Done.")
-
 """

@@ -211,7 +211,7 @@ class Theorems():
   
         machine_id = [m[0] for m in self.machines]
         machine_count = len(self.machines)
- 
+        
         # main loop: n is the current play number, goes from 1 to number_of_pulls
         for n in range(1, number_of_pulls + 1):
             # epsilon_n is our exploration probability for this round
