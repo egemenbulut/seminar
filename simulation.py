@@ -63,8 +63,6 @@ def run_simulations(n: int, data: Theorems, alg: str, alpha: float = 0.001,
                 data.ucb2(pull_count, alpha)
             elif alg == "en_greedy":
                 data.en_greedy(pull_count, c, d)
-            elif alg == "ucb1_normal":
-                data.ucb1_normal(pull_count)
             elif alg == "ucb_tuned":
                 data.ucb_tuned(pull_count)
             

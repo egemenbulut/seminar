@@ -240,10 +240,6 @@ class Theorems():
  
             # pull the chosen machine
             self.pull_machine(next_id)
-
-    #Theorem-4
-    def ucb1_normal(self) -> None:
-        pass
     
     #Extra 
     def ucb_tuned(self, number_of_pulls: int) -> None:
