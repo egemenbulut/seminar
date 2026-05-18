@@ -142,7 +142,7 @@ print("*" * 50)
 print("✓ UCB-Tuned vs UCB1 (Dist 2) graphs done.")
 print("*" * 50)"""
 
-
+"""
 # ─── Comparison on Distribution 2 [0.9, 0.8] ───
 ucb_tuned_d2  = simulation.run_simulations(5, data2, "ucb_tuned")
 ucb2_d2       = simulation.run_simulations(5, data2, "ucb2", alpha=0.001)
@@ -249,3 +249,19 @@ graphs.multi_best_machine_ratio_plot([
 ], title="Comparison on Distribution 14 [0.55, 0.45x9]",
    filename="comparison_dist14_ratio")
 print("Done with Distribution 14 comparison.")
+"""
+
+"""
+#UCB1 vs UCB2
+ucb1 = simulation.run_simulations(5, data7, "ucb1")
+ucb2 = simulation.run_simulations(5, data7, "ucb2", alpha=0.001)
+
+graphs.multi_regret_plot([
+    (ucb1[0], ucb1[1], "UCB1"),
+    (ucb2[0], ucb2[1], "UCB2 α=0.001")
+], title="UCB1 vs UCB2", filename="ucb1_vs_ucb2_regret")
+graphs.multi_best_machine_ratio_plot([
+    (ucb1[0], ucb1[2], "UCB1"),
+    (ucb2[0], ucb2[2], "UCB2 α=0.001")
+], title="UCB1 vs UCB2", filename="ucb1_vs_ucb2_ratio")
+"""
