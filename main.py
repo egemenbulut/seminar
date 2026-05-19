@@ -30,18 +30,18 @@ print("✓ UCB2 Alpha Comparison graphs done.")
 print("*" * 50)
 """
 
-"""# UCB-Tuned vs UCB1
+# UCB-Tuned vs UCB1
 ucb_tuned = simulation.run_simulations(5, data5, "ucb_tuned")
 ucb1 = simulation.run_simulations(5, data5, "ucb1")
-graphs.multi_regret_plot([(ucb_tuned[0], ucb_tuned[1], "UCB-Tuned"), 
+graphs.multi_regret_plot([(ucb_tuned[0], ucb_tuned[1], "UCB1-Tuned"), 
     (ucb1[0], ucb1[1], "UCB1")], 
-    title = "UCB-Tuned vs UCB1", filename = "ucb_tuned_vs_ucb1_regret")
-graphs.multi_best_machine_ratio_plot([(ucb_tuned[0], ucb_tuned[2], "UCB-Tuned"), 
+    title = "UCB1-Tuned vs UCB1", filename = "ucb1_tuned_vs_ucb1_regret")
+graphs.multi_best_machine_ratio_plot([(ucb_tuned[0], ucb_tuned[2], "UCB1-Tuned"), 
     (ucb1[0], ucb1[2], "UCB1")], 
-    title = "UCB-Tuned vs UCB1", filename = "ucb_tuned_vs_ucb1_ratio")    
+    title = "UCB1-Tuned vs UCB1", filename = "ucb1_tuned_vs_ucb1_ratio")    
 print("*" * 50)
-print("✓ UCB-Tuned vs UCB1 graphs done.")
-print("*" * 50)"""
+print("✓ UCB1-Tuned vs UCB1 graphs done.")
+print("*" * 50)
 
 """# e_n-greedy with different c values tested on distribution 1 (easy 2-armed)
 eng1_005 = simulation.run_simulations(5, data1, "en_greedy", c=0.05, d=0.3)
