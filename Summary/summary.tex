@@ -52,13 +52,13 @@
 How can an agent maximize cumulative reward when making repeated decisions under uncertainty? Its canonical
 form is the \emph{multi-armed bandit}: a player faces $K$ machines (``arms'') with unknown reward distributions
 and must choose one each round, trading off \emph{exploitation} (playing the best-looking arm) against
-\emph{exploration} (trying others underestimated by chance). Lai and Robbins (1985) showed regret must grow at
+\emph{exploration} (trying others). Lai and Robbins (1985) showed regret must grow at
 least logarithmically in the number of plays $n$, but only \emph{asymptotically}. This paper gives efficient
-policies achieving logarithmic regret \emph{uniformly over time} -- matching the finite horizon of real applications.
+policies achieving logarithmic regret \emph{uniformly over time} -- matching the finite horizon of real-world applications.
 
 \section{Setup}
 Each arm $i$ yields independent identically distributed rewards with unknown mean $\mu_{i}$, independent
-across arms. Let $T_{i}(n)$ be the number of plays of arm $i$ in the first $n$ rounds, $\bar{X}_{i}$ its
+across arms. Let $T_{i}(n)$ be the number of plays of arm $i$ in the first $n$ rounds, $\bar{x}_{i}$ its
 sample mean, $\mu^{*}=\max_{i}\mu_{i}$ the best mean, and $\triangle_{i}=\mu^{*}-\mu_{i}$ the
 suboptimal gap. The performance of the policies is measured with regret, the difference between the
 expected reward of playing the policy and playing always the best arm:

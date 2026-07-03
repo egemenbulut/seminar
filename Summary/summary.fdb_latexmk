@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1783093073.46502 "/Users/korbi/Documents/Seminar/seminar/Summary/summary.tex" "summary.pdf" "summary" 1783093074.35293 0
+["pdflatex"] 1783093661.4581 "/Users/korbi/Documents/Seminar/seminar/Summary/summary.tex" "summary.pdf" "summary" 1783093662.38052 0
   "../graphs/comparison_dist12_ratio.png" 1783091337.72491 99997 84b2bb25b86ffb906c27ff12dcc5d314 ""
   "../graphs/comparison_dist12_regret.png" 1783091337.72534 94353 8799dff78b1dccc099d618fb4ec3919f ""
   "../graphs/comparison_dist13_ratio.png" 1783091337.72578 104338 4c96949444ba7af7df15580bc2517d78 ""
@@ -8,7 +8,7 @@
   "../graphs/comparison_dist14_regret.png" 1783091337.72688 91596 436561c35376cdd16ada82933eec7542 ""
   "../graphs/comparison_dist2_ratio.png" 1783091337.72732 105513 2c32771ea9d654731cba72392ba048a8 ""
   "../graphs/comparison_dist2_regret.png" 1783091337.72761 72948 6825f5d4ca709e045554d6e7bdf069cc ""
-  "/Users/korbi/Documents/Seminar/seminar/Summary/summary.tex" 1783093040.42699 11051 3a9053fb8e6dabdd933e18dcb21e4e30 ""
+  "/Users/korbi/Documents/Seminar/seminar/Summary/summary.tex" 1783093661.26009 11032 8ad6bc232713762603e0c9b8646c7fd1 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -107,9 +107,9 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762205993 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762205958 3345731 186ea6b70d09e997aed976a7f9ebdbf2 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "summary.aux" 1783093074.29332 2575 903b5e12ba01a96533b3098205421381 "pdflatex"
-  "summary.out" 1783093074.29397 1727 48c3b82860449044e82dc39902ffade7 "pdflatex"
-  "summary.tex" 1783093040.42699 11051 3a9053fb8e6dabdd933e18dcb21e4e30 ""
+  "summary.aux" 1783093662.32226 2575 903b5e12ba01a96533b3098205421381 "pdflatex"
+  "summary.out" 1783093662.32284 1727 48c3b82860449044e82dc39902ffade7 "pdflatex"
+  "summary.tex" 1783093661.26009 11032 8ad6bc232713762603e0c9b8646c7fd1 ""
   (generated)
   "summary.aux"
   "summary.log"
